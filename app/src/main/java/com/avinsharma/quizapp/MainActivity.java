@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, scoreString, Toast.LENGTH_SHORT).show();
                 total_score = 0;
             }
-        } else if (nothingTicked == true) {
+        } else if (nothingTicked) {
             Toast.makeText(MainActivity.this, "No options selected", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(MainActivity.this, "Wrong Answer!, The correct answer was " + answers[question_number], Toast.LENGTH_SHORT).show();
