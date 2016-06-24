@@ -36,18 +36,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:freezesText="true"
             android:onClick="onButtonClick"
-            android:text="@string/start"
-            android:freezesText="true"/>
+            android:text="@string/start" />
 
         <TextView
             android:id="@+id/score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:freezesText="true"
             android:text=""
             android:textStyle="bold"
-            android:visibility="invisible"
-            android:freezesText="true"/>
+            android:visibility="invisible" />
     </LinearLayout>
 </ScrollView>

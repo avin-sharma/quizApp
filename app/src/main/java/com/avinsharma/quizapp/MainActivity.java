@@ -23,9 +23,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private int[] type = {1, 1, 1, 1, 2, 2, 3};
-    private String[] questions = {"What is the capital of New Zealand?", "Christiana is the former name of which European city?", "Dushanbe is the capital of which Central Asian republic?", "Michael Bloomberg is the mayor of which US city?","Factors of 6","Grey is made up of?","World's most popular sports?"};
-    private String[] answers = {"Wellington", "Oslo", "Tajikistan", "New York","2,3","Black,White","Football"};
-    private String[][] options = {{"Sydney", "Wellington", "Auckland", "Christchurch"}, {"Oslo", "Bergen", "Gothenburg", "Stockholm"}, {"Kyrgyzstan", "Afghanistan", "Uzbekistan", "Tajikistan"}, {"Massachusetts", "New York", "Ohio", "Pennsylvania"},{"2","3","4","5"}, {"Black","White","Blue","Green"},{}};
+    private String[] questions = {"What is the capital of New Zealand?", "Christiana is the former name of which European city?", "Dushanbe is the capital of which Central Asian republic?", "Michael Bloomberg is the mayor of which US city?", "Factors of 6", "Grey is made up of?", "World's most popular sports?"};
+    //The answers to the checkbox types must be separated by commas without space in a single string
+    private String[] answers = {"Wellington", "Oslo", "Tajikistan", "New York", "2,3", "Black,White", "Football"};
+    private String[][] options = {{"Sydney", "Wellington", "Auckland", "Christchurch"}, {"Oslo", "Bergen", "Gothenburg", "Stockholm"}, {"Kyrgyzstan", "Afghanistan", "Uzbekistan", "Tajikistan"}, {"Massachusetts", "New York", "Ohio", "Pennsylvania"}, {"2", "3", "4", "5"}, {"Black", "White", "Blue", "Green"}, {}};
     private int question_number = 0;
     private int total_score = 0;
 
@@ -51,10 +52,20 @@ public class MainActivity extends AppCompatActivity {
     public void onButtonClick(View view) {
 
         if (button.getText().toString().equals(getResources().getText(R.string.start))) {
-
-            createRadioButtonQuestion();
+            //starting with the first question
+            switch (type[question_number]) {
+                case 1:
+                    createRadioButtonQuestion();
+                    break;
+                case 2:
+                    createCheckBoxQuestion();
+                    break;
+                case 3:
+                    createEditTextQuestions();
+                    break;
+            }
         } else if (button.getText().toString().equals(getResources().getText(R.string.submit))) {
-
+            //checking according to the question type
             switch (type[question_number]) {
                 case 1:
                     checkRadioButtonAnswer();
@@ -63,12 +74,12 @@ public class MainActivity extends AppCompatActivity {
                     checkCheckBoxAnswer();
                     break;
                 case 3:
-                    checkEditTextAnswer();
+                    checkEditTextAnswer(); //Answers are case sensitive
                     break;
 
             }
         } else if (button.getText().toString().equals(getResources().getText(R.string.next))) {
-
+            // cresting views and showing next question according to the question type
             switch (type[question_number]) {
                 case 1:
                     createRadioButtonQuestion();
@@ -104,11 +115,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void createCheckBoxQuestion(){
+    public void createCheckBoxQuestion() {
         linearLayout.removeAllViews();
         textView.setText(questions[question_number]);
         final CheckBox[] checkbox = new CheckBox[4];
-        for (int i=0; i<4; i++){
+        for (int i = 0; i < 4; i++) {
             checkbox[i] = new CheckBox(this);
             checkbox[i].setText(options[question_number][i]);
             linearLayout.addView(checkbox[i]);
@@ -119,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void createEditTextQuestions(){
+    public void createEditTextQuestions() {
         linearLayout.removeAllViews();
         textView.setText(questions[question_number]);
         EditText editText = new EditText(MainActivity.this);
@@ -132,9 +143,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void checkEditTextAnswer(){
+    public void checkEditTextAnswer() {
 
-        if (editText.getText().toString().equals(answers[question_number])){
+        if (editText.getText().toString().equals(answers[question_number])) {
             Toast.makeText(MainActivity.this, "Correct answer!", Toast.LENGTH_SHORT).show();
             total_score++;
             String scoreString = "Total score " + String.valueOf(total_score);
@@ -146,11 +157,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, scoreString, Toast.LENGTH_SHORT).show();
                 total_score = 0;
             }
-        }
-        else if (TextUtils.isEmpty(editText.getText().toString())){
+        } else if (TextUtils.isEmpty(editText.getText().toString())) {
             Toast.makeText(MainActivity.this, "No answer given", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             Toast.makeText(MainActivity.this, "Wrong Answer!, The correct answer was " + answers[question_number], Toast.LENGTH_SHORT).show();
             button.setText(getResources().getText(R.string.next));
             question_number++;
@@ -168,15 +177,15 @@ public class MainActivity extends AppCompatActivity {
         boolean nothingTicked = true;
         List<String> ticked = new ArrayList<>();
         List<String> correct = Arrays.asList(answers[question_number].split(","));
-        for (int i=0; i<4; i++){
-            if(checkbox[i].isChecked()){
+        for (int i = 0; i < 4; i++) {
+            if (checkbox[i].isChecked()) {
                 ticked.add(checkbox[i].getText().toString());
                 nothingTicked = false;
             }
         }
         Collections.sort(ticked, Collator.getInstance());
         Collections.sort(correct, Collator.getInstance());
-        if (ticked.equals(correct)){
+        if (ticked.equals(correct)) {
             Toast.makeText(MainActivity.this, "Correct answer!", Toast.LENGTH_SHORT).show();
             total_score++;
             String scoreString = "Total score " + String.valueOf(total_score);
@@ -188,11 +197,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, scoreString, Toast.LENGTH_SHORT).show();
                 total_score = 0;
             }
-        }
-        else if (nothingTicked == true){
+        } else if (nothingTicked == true) {
             Toast.makeText(MainActivity.this, "No options selected", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             Toast.makeText(MainActivity.this, "Wrong Answer!, The correct answer was " + answers[question_number], Toast.LENGTH_SHORT).show();
             button.setText(getResources().getText(R.string.next));
             question_number++;
