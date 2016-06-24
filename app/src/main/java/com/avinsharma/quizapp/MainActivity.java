@@ -23,7 +23,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private int[] type = {1, 1, 1, 1, 2, 2, 3};
-    private String[] questions = {"What is the capital of New Zealand?", "Christiana is the former name of which European city?", "Dushanbe is the capital of which Central Asian republic?", "Michael Bloomberg is the mayor of which US city?","Multiples of 6","Grey is made up of?","World's most popular sports?"};
+    private String[] questions = {"What is the capital of New Zealand?", "Christiana is the former name of which European city?", "Dushanbe is the capital of which Central Asian republic?", "Michael Bloomberg is the mayor of which US city?","Factors of 6","Grey is made up of?","World's most popular sports?"};
     private String[] answers = {"Wellington", "Oslo", "Tajikistan", "New York","2,3","Black,White","Football"};
     private String[][] options = {{"Sydney", "Wellington", "Auckland", "Christchurch"}, {"Oslo", "Bergen", "Gothenburg", "Stockholm"}, {"Kyrgyzstan", "Afghanistan", "Uzbekistan", "Tajikistan"}, {"Massachusetts", "New York", "Ohio", "Pennsylvania"},{"2","3","4","5"}, {"Black","White","Blue","Green"},{}};
     private int question_number = 0;
